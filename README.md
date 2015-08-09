@@ -10,6 +10,8 @@
 No reason for the name, just roll with it.
 ```
 
+![Screenie](assets/Death87.png)
+
 ## Directory Structure
 ### / (root)
 This is where you find the main files for the game, including Main.py (suprise, suprise),

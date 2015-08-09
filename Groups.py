@@ -26,6 +26,8 @@ class Groups:
         self.sprites = pygame.sprite.Group()
         self.walls = pygame.sprite.Group()
         self.text = pygame.sprite.Group()
+        self.particles = pygame.sprite.Group()
+        self.emitters = pygame.sprite.Group()
 
     def addtogroup(self, object, group):
         group.add(object)

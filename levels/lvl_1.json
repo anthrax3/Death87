@@ -2,34 +2,48 @@
   "scene":
     {
       "properties": {
-        "music": "assets/go_now.wav",
+        "music": "",
         "fps": 1,
         "fps_pos": ["20", "20"]
       },
       "objects": {
-        "platform1": {
+        "floor1": {
           "type": "wall",
-          "x": "400",
+          "x": "0",
           "y": "600",
-          "width": "400",
+          "width": "300",
           "height": "20",
           "color": ["50", "50", "50"],
-          "dampening": "1.0",
-          "friction": "1.0",
-          "soft": 0
+          "dampening": "0.9",
+          "friction": "0.8",
+          "soft": 0,
+          "emitter": 0
         },
         "bouncepad": {
           "type": "wall",
-          "x": "0",
-          "y": "595",
-          "width": "380",
-          "height": "25",
+          "x": "300",
+          "y": "590",
+          "width": "280",
+          "height": "30",
           "color": ["0", "127", "0"],
           "dampening": "0.1",
           "friction": "0.6",
-          "soft": 1
+          "soft": 1,
+          "emitter": 1
         },
-        "platform2": {
+        "floor2": {
+          "type": "wall",
+          "x": "580",
+          "y": "600",
+          "width": "500",
+          "height": "20",
+          "color": ["50", "50", "50"],
+          "dampening": "0.9",
+          "friction": "0.8",
+          "soft": 0,
+          "emitter": 0
+        },
+        "platform": {
           "type": "wall",
           "x": "0",
           "y": "200",
@@ -38,27 +52,8 @@
           "color": ["50", "50", "50"],
           "dampening": "0.9",
           "friction": "0.6",
-          "soft": 0
-        },
-        "text1": {
-          "type": "text",
-          "text": "This is a bounce pad.",
-          "x": "410",
-          "y": "575",
-          "font": "",
-          "size": "30",
-          "antialias": 1,
-          "color": ["0", "200", "0"]
-        },
-        "text2": {
-          "type": "text",
-          "text": "Don't be scared.",
-          "x": "100",
-          "y": "175",
-          "font": "",
-          "size": "30",
-          "antialias": 1,
-          "color": ["0", "0", "200"]
+          "soft": 0,
+          "emitter": 0
         },
         "left": {
           "type": "wall",
@@ -69,7 +64,8 @@
           "color": ["50", "50", "50"],
           "dampening": "0.9",
           "friction": "0.0",
-          "soft": 0
+          "soft": 0,
+          "emitter": 0
         }
       }
     }

@@ -29,7 +29,9 @@ class Wall(pygame.sprite.Sprite):
         self.color = color
         self.dampening = dampening
         self.friction = friction
-        self.image = pygame.Surface((width, height))
+        self.width = width
+        self.height = height
+        self.image = pygame.Surface((self.width, self.height))
         self.image.fill(self.color)
         self.rect = self.image.get_rect()  # That's right, get rect!
         self.rect.x = x

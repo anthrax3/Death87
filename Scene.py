@@ -20,10 +20,11 @@
 
 import json
 import decimal
-import os
+import random
 from objects.Player import *
 from objects.Wall import *
 from objects.Text import *
+from objects.Particle import *
 from Window import *
 from Groups import *
 
@@ -59,9 +60,11 @@ class Scene:
                 damp = float(data["scene"]["objects"][object]["dampening"])
                 fric = float(data["scene"]["objects"][object]["friction"])
                 soft = bool(data["scene"]["objects"][object]["soft"])
-
+                emitter = bool(data["scene"]["objects"][object]["emitter"])
                 wall = Wall(x, y, width, height, color, damp, fric, soft)
                 self.groups.addtogroup(wall, self.groups.walls)
+                if emitter:
+                    self.groups.addtogroup(wall, self.groups.emitters)
             elif data["scene"]["objects"][object]["type"] == "text":
                 text = data["scene"]["objects"][object]["text"]
                 x = int(data["scene"]["objects"][object]["x"])
@@ -89,13 +92,23 @@ class Scene:
                     int(data["scene"]["properties"]["fps_pos"][1])
                 )
                 fpstext = str(self.clock.get_fps()) + " FPS"
-                self.fpsmeter = Text(self.window, pos[0], pos[1], 20, None, text, True, (255, 255, 255))
+                self.fpsmeter = Text(self.window, pos[0], pos[1], 20, None, fpstext, True, (255, 255, 255))
                 self.groups.addtogroup(self.fpsmeter, self.groups.text)
 
 
 
     def update(self):
         self.player.update()
+        for object in self.groups.emitters:
+            particle = Particle(10, 10, random.randrange(-1, 2), random.randrange(-5, -2), object, 50, (255, 255, 255), 0.1)
+            self.groups.addtogroup(particle, self.groups.particles)
+        for p in self.groups.particles:
+            p.update()
+            if p.shoulddie:
+                p.kill()
+        if self.fps:
+            self.fpsmeter.text = str(round(self.clock.get_fps(), 2)) + " FPS"
+            self.fpsmeter.update()
 
     def draw(self):
 
@@ -109,10 +122,9 @@ class Scene:
             if self.deathscreen_ticker < 1:
                 self.player.respawn()
                 self.groups.addtogroup(self.player, self.groups.sprites)
-        if self.fps:
-            self.fpsmeter.text = str(round(self.clock.get_fps(), 2)) + " FPS"
-            self.fpsmeter.update()
+
 
         self.groups.text.draw(self.window)
         self.groups.walls.draw(self.window)
         self.groups.sprites.draw(self.window)
+        self.groups.particles.draw(self.window)
