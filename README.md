@@ -19,4 +19,4 @@ Scene.py (The thing that allows you to load scenes in .json format), and Group.p
 This is where all the sounds and images for the game are. I made the music with [Soundation](https://soundation.com/)
 
 ### /objects
-Where are the in-game objects are. This includes Walls, players and text.
+Where all the in-game objects are. This includes Walls, players and text.
