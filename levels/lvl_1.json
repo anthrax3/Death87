@@ -1,0 +1,76 @@
+{
+  "scene":
+    {
+      "properties": {
+        "music": "assets/go_now.wav",
+        "fps": 1,
+        "fps_pos": ["20", "20"]
+      },
+      "objects": {
+        "platform1": {
+          "type": "wall",
+          "x": "400",
+          "y": "600",
+          "width": "400",
+          "height": "20",
+          "color": ["50", "50", "50"],
+          "dampening": "1.0",
+          "friction": "1.0",
+          "soft": 0
+        },
+        "bouncepad": {
+          "type": "wall",
+          "x": "0",
+          "y": "595",
+          "width": "380",
+          "height": "25",
+          "color": ["0", "127", "0"],
+          "dampening": "0.1",
+          "friction": "0.6",
+          "soft": 1
+        },
+        "platform2": {
+          "type": "wall",
+          "x": "0",
+          "y": "200",
+          "width": "300",
+          "height": "20",
+          "color": ["50", "50", "50"],
+          "dampening": "0.9",
+          "friction": "0.6",
+          "soft": 0
+        },
+        "text1": {
+          "type": "text",
+          "text": "This is a bounce pad.",
+          "x": "410",
+          "y": "575",
+          "font": "",
+          "size": "30",
+          "antialias": 1,
+          "color": ["0", "200", "0"]
+        },
+        "text2": {
+          "type": "text",
+          "text": "Don't be scared.",
+          "x": "100",
+          "y": "175",
+          "font": "",
+          "size": "30",
+          "antialias": 1,
+          "color": ["0", "0", "200"]
+        },
+        "left": {
+          "type": "wall",
+          "x": "0",
+          "y": "0",
+          "width": "10",
+          "height": "2000",
+          "color": ["50", "50", "50"],
+          "dampening": "0.9",
+          "friction": "0.0",
+          "soft": 0
+        }
+      }
+    }
+}
