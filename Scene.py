@@ -38,7 +38,7 @@ class Scene:
         self.groups = Groups()
         self.fps = False
         self.fpsmeter = None
-        self.player = Player(window_class, (450, 450), 10, 10, (0, 0), self.groups)
+        self.player = Player(window_class, (450, 450), 10, 10, self.groups)
         self.deathscreen_ticker = 255
         self.groups.addtogroup(self.player, self.groups.sprites)
         with open('levels/lvl_1.json', 'r') as data_file:
@@ -58,10 +58,9 @@ class Scene:
                             int(data["scene"]["objects"][object]["color"][1]),
                             int(data["scene"]["objects"][object]["color"][2])
                         )
-                        fric = float(data["scene"]["objects"][object]["friction"])
                         soft = bool(data["scene"]["objects"][object]["soft"])
                         emitter = bool(data["scene"]["objects"][object]["emitter"])
-                        wall = Wall(x, y, width, height, color, fric, soft)
+                        wall = Wall(x, y, width, height, color, soft)
                         self.groups.addtogroup(wall, self.groups.walls)
                         if emitter:
                             self.groups.addtogroup(wall, self.groups.emitters)

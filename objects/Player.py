@@ -22,15 +22,15 @@ import pygame
 
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, window, pos, width, height, velocity, group):
+    def __init__(self, window, pos, width, height, group):
 
         pygame.sprite.Sprite.__init__(self)
 
         self.width = width
         self.height = height
         self.origin = pos
-        self.vx = velocity[0]
-        self.vy = velocity[1]
+        self.vx = 0
+        self.vy = 0
 
         self.onRight = False
         self.onLeft = False
@@ -70,6 +70,7 @@ class Player(pygame.sprite.Sprite):
                 if self.vx >= 15 and not wall.soft:
                     self.dead = True
                 self.rect.right = wall.rect.left
+                self.vx = 0
                 self.vy = self.vy * 0.6
                 self.onLeft = True
             else:
@@ -96,7 +97,7 @@ class Player(pygame.sprite.Sprite):
                 if self.vy <= -15 and not wall.soft:
                     self.dead = True
                 self.rect.top = wall.rect.bottom
-                self.vx = 0
+                self.vy = 0
                 self.vx = self.vx * 0.6
                 self.onBottom = True
 

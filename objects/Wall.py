@@ -26,11 +26,10 @@ A class for making solid objects that the player can collide with.
 
 class Wall(pygame.sprite.Sprite):
 
-    def __init__(self, x, y, width, height, color, friction, soft):
+    def __init__(self, x, y, width, height, color, soft):
 
         pygame.sprite.Sprite.__init__(self)
         self.color = color
-        self.friction = friction
         self.width = width
         self.height = height
         self.image = pygame.Surface((self.width, self.height))
