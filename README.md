@@ -22,5 +22,3 @@ This is where all the sounds and images for the game are. I made the music with 
 
 ### /objects
 Where all the in-game objects are. This includes Walls, players and text.
-
-# TEST TEST TEST
