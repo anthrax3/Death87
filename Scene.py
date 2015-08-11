@@ -46,55 +46,63 @@ class Scene:
 
 
         for object in data["scene"]["objects"]:
-            if data["scene"]["objects"][object]["type"] == 'wall':
+            try:
+                if data["scene"]["objects"][object]["type"] == 'wall':
 
-                x = int(data["scene"]["objects"][object]["x"])
-                y = int(data["scene"]["objects"][object]["y"])
-                width = int(data["scene"]["objects"][object]["width"])
-                height = int(data["scene"]["objects"][object]["height"])
-                color = (
-                    int(data["scene"]["objects"][object]["color"][0]),
-                    int(data["scene"]["objects"][object]["color"][1]),
-                    int(data["scene"]["objects"][object]["color"][2])
-                )
-                damp = float(data["scene"]["objects"][object]["dampening"])
-                fric = float(data["scene"]["objects"][object]["friction"])
-                soft = bool(data["scene"]["objects"][object]["soft"])
-                emitter = bool(data["scene"]["objects"][object]["emitter"])
-                wall = Wall(x, y, width, height, color, damp, fric, soft)
-                self.groups.addtogroup(wall, self.groups.walls)
-                if emitter:
-                    self.groups.addtogroup(wall, self.groups.emitters)
-            elif data["scene"]["objects"][object]["type"] == "text":
-                text = data["scene"]["objects"][object]["text"]
-                x = int(data["scene"]["objects"][object]["x"])
-                y = int(data["scene"]["objects"][object]["y"])
-                font = data["scene"]["objects"][object]["font"]
-                size = int(data["scene"]["objects"][object]["size"])
-                antialias = bool(data["scene"]["objects"][object]["antialias"])
-                color = (
-                    int(data["scene"]["objects"][object]["color"][0]),
-                    int(data["scene"]["objects"][object]["color"][1]),
-                    int(data["scene"]["objects"][object]["color"][2])
-                )
+                        x = int(data["scene"]["objects"][object]["x"])
+                        y = int(data["scene"]["objects"][object]["y"])
+                        width = int(data["scene"]["objects"][object]["width"])
+                        height = int(data["scene"]["objects"][object]["height"])
+                        color = (
+                            int(data["scene"]["objects"][object]["color"][0]),
+                            int(data["scene"]["objects"][object]["color"][1]),
+                            int(data["scene"]["objects"][object]["color"][2])
+                        )
+                        fric = float(data["scene"]["objects"][object]["friction"])
+                        soft = bool(data["scene"]["objects"][object]["soft"])
+                        emitter = bool(data["scene"]["objects"][object]["emitter"])
+                        wall = Wall(x, y, width, height, color, fric, soft)
+                        self.groups.addtogroup(wall, self.groups.walls)
+                        if emitter:
+                            self.groups.addtogroup(wall, self.groups.emitters)
 
-                textobj = Text(self.window, x, y, size, font, text, antialias, color)
-                self.groups.addtogroup(textobj, self.groups.text)
+                elif data["scene"]["objects"][object]["type"] == "text":
+                    text = data["scene"]["objects"][object]["text"]
+                    x = int(data["scene"]["objects"][object]["x"])
+                    y = int(data["scene"]["objects"][object]["y"])
+                    font = data["scene"]["objects"][object]["font"]
+                    size = int(data["scene"]["objects"][object]["size"])
+                    antialias = bool(data["scene"]["objects"][object]["antialias"])
+                    color = (
+                        int(data["scene"]["objects"][object]["color"][0]),
+                        int(data["scene"]["objects"][object]["color"][1]),
+                        int(data["scene"]["objects"][object]["color"][2])
+                    )
+
+                    textobj = Text(self.window, x, y, size, font, text, antialias, color)
+                    self.groups.addtogroup(textobj, self.groups.text)
+            except KeyError:
+                print "Invalid configuration for " + object + ". Ignoring object and moving on."
 
         for property in data["scene"]["properties"]:
-            if property == "music":
-                music = pygame.mixer.Sound(data["scene"]["properties"]["music"])
-                music.play(-1, fade_ms=1000)
-            elif property == "fps" and bool(data["scene"]["properties"]["fps"]):
-                self.fps = True
-                pos = (
-                    int(data["scene"]["properties"]["fps_pos"][0]),
-                    int(data["scene"]["properties"]["fps_pos"][1])
-                )
-                fpstext = str(self.clock.get_fps()) + " FPS"
-                self.fpsmeter = Text(self.window, pos[0], pos[1], 20, None, fpstext, True, (255, 255, 255))
-                self.groups.addtogroup(self.fpsmeter, self.groups.text)
-
+            try:
+                if property == "music":
+                    try:
+                        music = pygame.mixer.Sound(data["scene"]["properties"]["music"])
+                        music.play(-1, fade_ms=1000)
+                    except:
+                        print "Could not load music. Maybe you entered a value other than string?"
+                elif property == "fps" and bool(data["scene"]["properties"]["fps"]):
+                    self.fps = True
+                    pos = (
+                        int(data["scene"]["properties"]["fps_pos"][0]),
+                        int(data["scene"]["properties"]["fps_pos"][1])
+                    )
+                    fpstext = str(self.clock.get_fps()) + " FPS"
+                    self.fpsmeter = Text(self.window, pos[0], pos[1], 20, None, fpstext, True, (255, 255, 255))
+                    self.groups.addtogroup(self.fpsmeter, self.groups.text)
+            except KeyError:
+                print "Invalid configuration for " + property + ". Ignoring property and moving on."
 
 
     def update(self):

@@ -19,23 +19,9 @@
 """
 
 import pygame
+from Wall import *
 
-"""
-A class for making solid objects that the player can collide with.
-"""
+class BouncePad(Wall):
+    def __init__(self, x, y, width, height, color, friction, bounciness):
 
-class Wall(pygame.sprite.Sprite):
-
-    def __init__(self, x, y, width, height, color, friction, soft):
-
-        pygame.sprite.Sprite.__init__(self)
-        self.color = color
-        self.friction = friction
-        self.width = width
-        self.height = height
-        self.image = pygame.Surface((self.width, self.height))
-        self.image.fill(self.color)
-        self.rect = self.image.get_rect()  # That's right, get rect!
-        self.rect.x = x
-        self.rect.y = y
-        self.soft = soft
+        Wall.__init__(self, x, y, width, height, color, friction, True)

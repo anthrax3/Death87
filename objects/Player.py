@@ -19,7 +19,6 @@
 """
 
 import pygame
-import math
 
 
 class Player(pygame.sprite.Sprite):
@@ -67,40 +66,38 @@ class Player(pygame.sprite.Sprite):
         self.rect.x += self.vx
         wallcollisons = pygame.sprite.spritecollide(self, self.groups.walls, False)
         for wall in wallcollisons:
-            if self.vx > 0:
-               # if (self.rect.right )
+            if self.vx >= 0:
                 if self.vx >= 15 and not wall.soft:
                     self.dead = True
-                self.rect.right = wall.rect.left - 1
-                self.vx = -self.vx * (1 - wall.dampening)
-                self.vy = self.vy * (1 - wall.friction)
+                self.rect.right = wall.rect.left
+                self.vy = self.vy * 0.6
                 self.onLeft = True
             else:
                 if self.vx <= -15 and not wall.soft:
                     self.dead = True
-                self.rect.left = wall.rect.right + 1
-                self.vx = -self.vx * (1 - wall.dampening)
-                self.vy = self.vy * (1 - wall.friction)
+                self.rect.left = wall.rect.right
+                self.vx = 0
+                self.vy = self.vy * 0.6
                 self.onRight = True
 
         self.rect.y += self.vy
 
         wallcollisions = pygame.sprite.spritecollide(self, self.groups.walls, False)
         for wall in wallcollisions:
-            if self.vy > 0:
+            if self.vy >= 0:
                 if self.vy >= 15 and not wall.soft:
                     self.dead = True
                 self.rect.bottom = wall.rect.top
-                self.vy = -self.vy * (1 - wall.dampening)
-                self.vx = self.vx * (1 - wall.friction)
+                self.vy = 0
+                self.vx = self.vx * 0.6
                 self.onTop = True
 
             else:
                 if self.vy <= -15 and not wall.soft:
                     self.dead = True
                 self.rect.top = wall.rect.bottom
-                self.vy = -self.vy * (1 - wall.dampening)
-                self.vx = self.vx * (1 - wall.friction)
+                self.vx = 0
+                self.vx = self.vx * 0.6
                 self.onBottom = True
 
 

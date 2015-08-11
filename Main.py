@@ -66,7 +66,7 @@ def getevents():
                 if scene.player.onTop:
                     scene.player.vy += -5
                 elif scene.player.onBottom:
-                    scene.player.vy += 5
+                    scene.player.vy += 3
                 elif scene.player.onRight:
                     scene.player.vx += 3
                     scene.player.vy += -3
